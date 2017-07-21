@@ -1,5 +1,4 @@
 package com.xsis.service;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,14 +9,11 @@ import com.xsis.dao.EmployeeDaoImpl;
 import com.xsis.dbconnect.DbUtils;
 import com.xsis.entity.Employee;
 
-public class EmployeeService {
+public interface EmployeeService {
 	
-	//polymorphism
-	EmployeeDao employeeDao = new EmployeeDaoImpl();
+	public List<Employee> getAllEmployee();
+	public void save(Employee emp);
+	public void delete(int parseInt);
 	
-	//get all employee
-	public List<Employee> getAllEmployee(){
-		return employeeDao.getAllEmployee();
-	}
 
 }

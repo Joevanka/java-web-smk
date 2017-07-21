@@ -14,6 +14,7 @@ import com.xsis.entity.Employee;
 public class EmployeeDaoImpl implements EmployeeDao{
 
 	Connection conn = DbUtils.getConnect();
+	private static final String DELETE = "DELETE FROM XSIS_EMPLOYEE where ID = ?";
 	private static final String SQL_SAVE = "INSERT INTO XSIS_EMPLOYEE "
 			+ "(id, name, address,salary, nohp) "
 			+ "	values (xsis_seq.nextval, ?, ?, ?, ?)"; //JAVA CONSTANTA
@@ -25,7 +26,14 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		// TODO Auto-generated method stub
 		PreparedStatement ps = 
 				DbUtils.getPreparedStatement(SQL_SAVE, conn);
+		
+		
 		try {
+			ps.setString(1, emp.getName());
+			ps.setString(2, emp.getAddress());
+			ps.setDouble(3, emp.getSalary());
+			ps.setString(4, emp.getNoHp());
+			
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -42,7 +50,15 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement ps = 
+				DbUtils.getPreparedStatement(DELETE, conn);
+		try {
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
