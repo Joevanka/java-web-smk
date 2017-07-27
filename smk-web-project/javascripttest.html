@@ -15,7 +15,7 @@
 				var elementSubmit = $('#save');
 				var addData = $('#add');
 				
-				//event listener on click
+				//event listener on click for adding row
 				elementSubmit.on('click', function(){
 					var employee = {
 						name : 	elementName.val(),
@@ -29,7 +29,7 @@
 					tr += "<td>"+employee.name+"</td>";
 					tr += "<td>"+employee.address+"</td>";
 					tr += "<td>"+employee.school+"</td>";
-					tr += "<td><a href='#'>Delete</td>";
+					tr += "<td><a href='#' id='del'>Delete</td>";
 					tr += "</tr>";
 					tbody.append(tr);
 					
@@ -37,8 +37,12 @@
 					clearForm();
 					$('#form-input').fadeOut("slow");
 					
-					
 				});
+				
+				//delete click listener
+				
+				
+					
 				
 				addData.on('click', function(){
 					$('#form-input').fadeIn("slow");
