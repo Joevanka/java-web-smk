@@ -17,6 +17,7 @@ public class Home {
 	@ResponseBody
 	@RequestMapping(value="/save", method=RequestMethod.GET)
 	public String save(){
+		
 		return "this page will save..";
 	}
 }
