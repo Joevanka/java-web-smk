@@ -8,6 +8,16 @@
 <script type="text/javascript" src="/resources/assets/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		//save listener
+		$("input[id='submit']").on("click", function(){
+			save();
+			
+		});
+		
+		//load data listener
+		$("#loadData").on('click', function(){
+			showData();
+		});
 		
 	});
 </script>
@@ -18,7 +28,94 @@
 		<input type="text" name="address" placeholder="enter your address" /></br>
 		<input type="number" name="salary" placeholder="enter your the salary"  /></br>
 		<input type="email" name="email" placeholder="enter your valid email" /></br>
-		<input type="submit" name="submit" /></br>
+		<input type="submit" id="submit" name="submit" /></br>
 	</div>
+	
+	<a href="#" id="loadData">Load</a>
+	<p>
+		<table id="emp-dt">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Salary</th>
+					<th>Email</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</p>
 </body>
+<script>
+	function showData(){
+		$.ajax({
+			url: '/employee/getAll',
+			type: 'POST',
+			dataType: 'json',
+			success: function(data, x, xhr){
+				console.log("data is loaded!!");
+				fillData(data);
+			}
+		});
+	}
+	
+	function fillData(data){
+		var dt = $('#emp-dt');
+		var tbody = dt.find('tbody');
+		tbody.find('tr').remove();
+		//extract data json
+		$.each(data, function(index, employee){
+		var trString = "<tr>";
+				trString += "<td>";
+					trString += employee.name;
+				trString += "</td>";
+				trString += "<td>";
+					trString += employee.address;
+				trString += "</td>";
+				trString += "<td>";
+					trString += employee.salary;
+				trString += "</td>";
+				trString += "<td>";
+					trString += employee.email;
+				trString += "</td>";
+				trString += "<td>";
+					trString += "<a href='#'>Delete</a>";
+				trString += "</td>";
+			trString += "</tr>";
+			
+			tbody.append(trString);
+		});
+	}
+	
+	function save(){
+			var name = $('input[name="name"]').val();
+			var address = $('input[name="address"]').val();
+			var salary = $('input[name="salary"]').val();
+			var email = $('input[name="email"]').val();
+			
+			//same with java POJO (java encapsulation)
+			var employee = {
+					name: name,
+					address : address,
+					salary : salary,
+					email : email
+			}
+			
+			//AJAX => asyncronous javascript and XML
+			$.ajax({
+				url: '/employee/save',
+				type : 'POST',
+				contentType: 'application/json', // header json
+				data: JSON.stringify(employee), //convert object to string
+				success: function(data, a, xhr){ //result dari controller
+
+					if(xhr.status == 201){
+						console.log("data berhasil di create!!s");
+						showData();
+					}
+				}
+			});
+	}
+</script>
 </html>
