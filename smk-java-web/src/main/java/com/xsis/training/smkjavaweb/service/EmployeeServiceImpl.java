@@ -27,4 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.getAllEmployee();
 	}
 
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		employeeDao.delete(id);
+	}
+
+	public Employee getEmployeeById(int id) {
+		// TODO Auto-generated method stub
+		Employee emp = employeeDao.getEmployeeById(id);
+		return emp;
+	}
+
 }

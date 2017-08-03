@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+		Employee emp = new Employee();
+		emp.setId(id);
+		emp.setName("asdf");
+		session.delete(emp);
+		session.flush();
 	}
 
 	public List<Employee> getAllEmployee() {
@@ -41,6 +47,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 					session.createCriteria(Employee.class).list();
 		 
 		return list;
+	}
+
+	public Employee getEmployeeById(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Employee emp = session.get(Employee.class, id);
+		return emp;
 	}
 
 }

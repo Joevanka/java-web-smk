@@ -19,6 +19,26 @@
 			showData();
 		});
 		
+		//delete listener
+		$(document).on("click", '.delete', function(){
+			onDelete(this);
+		});
+		
+		//update listener
+		//get item
+		$(document).on("click", '.update', function(){
+			var id = $(this).attr('id_update');
+			$.ajax({
+				url : '/employee/getdatabyid/'+ id,
+				type : 'GET',
+				dataType: 'json',
+				success : function(data){
+					updateColumn(data);
+				}
+			});
+		});
+		
+		//set
 	});
 </script>
 </head>
@@ -80,7 +100,8 @@
 					trString += employee.email;
 				trString += "</td>";
 				trString += "<td>";
-					trString += "<a href='#'>Delete</a>";
+					trString += "<a id_delete='"+employee.id+"' href='#' class='delete'>Delete</a> |";
+					trString += "<a id_update='"+employee.id+"' href='#' class='update'> Update</a>";
 				trString += "</td>";
 			trString += "</tr>";
 			
@@ -116,6 +137,25 @@
 					}
 				}
 			});
+	}
+	
+	function onDelete(ini){
+		var id = $(ini).attr('id_delete');
+		//ajax for deleting
+		$.ajax({
+			url : '/employee/delete/'+id,
+			type : 'DELETE',
+			success : function(data){
+				showData();
+			}
+		});
+	}
+	
+	function updateColumn(data){
+		$('input[name="name"]').val(data.name);
+		$('input[name="address"]').val(data.address);
+		$('input[name="salary"]').val(data.salary);
+		$('input[name="email"]').val(data.email);
 	}
 </script>
 </html>

@@ -14,4 +14,5 @@ public interface EmployeeDao {
 	public void delete(int id);
 	//getAll
 	public List<Employee> getAllEmployee();
+	public Employee getEmployeeById(int id);
 }
