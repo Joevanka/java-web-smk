@@ -60,5 +60,11 @@ public class EmployeeController {
 		
 		return emp;
 	}
+	
+	@RequestMapping(value = "/update", method=RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.OK)
+	public void update(@RequestBody Employee emp){
+		employeeService.update(emp);
+	}
 
 }

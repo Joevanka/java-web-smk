@@ -56,4 +56,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return emp;
 	}
 
+	public void update(Employee e) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.update(e);
+		session.flush();
+	}
+
 }

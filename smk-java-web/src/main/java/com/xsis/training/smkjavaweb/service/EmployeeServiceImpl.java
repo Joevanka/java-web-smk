@@ -38,4 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return emp;
 	}
 
+	public void update(Employee emp) {
+		// TODO Auto-generated method stub
+		employeeDao.update(emp);
+	}
+
 }

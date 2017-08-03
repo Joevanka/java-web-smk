@@ -9,7 +9,7 @@ public interface EmployeeDao {
 	//save
 	public void save(Employee e);
 	//update
-	public void update(int id, Employee e);
+	public void update(Employee e);
 	//delete
 	public void delete(int id);
 	//getAll

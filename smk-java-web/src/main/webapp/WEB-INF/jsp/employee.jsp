@@ -24,6 +24,34 @@
 			onDelete(this);
 		});
 		
+		//btn update submit
+		$('#btnSubmit').on('click',function(){
+			var name = $('input[name="name"]').val();
+			var address = $('input[name="address"]').val();
+			var salary = $('input[name="salary"]').val();
+			var email = $('input[name="email"]').val();
+			var id = $('input[name="id"]').val();
+			
+			var employee = {
+					name: name,
+					address : address,
+					salary : salary,
+					email : email,
+					id : id
+			}
+			
+			$.ajax({
+				url : '/employee/update',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(employee),
+				success : function(data){
+					showData();
+					clearColumn();
+				}
+			});
+		});
+			
 		//update listener
 		//get item
 		$(document).on("click", '.update', function(){
@@ -44,11 +72,13 @@
 </head>
 <body>
 	<div id="form-employee">
+		<input type="hidden" name="id" >
 		<input type="text" name="name" placeholder="enter your name" /></br>
 		<input type="text" name="address" placeholder="enter your address" /></br>
 		<input type="number" name="salary" placeholder="enter your the salary"  /></br>
 		<input type="email" name="email" placeholder="enter your valid email" /></br>
-		<input type="submit" id="submit" name="submit" /></br>
+		<input type="submit" id="submit" name="submit" />
+		<input type="submit" id="btnSubmit" name="btnSubmit" value="update"/></br>
 	</div>
 	
 	<a href="#" id="loadData">Load</a>
@@ -135,6 +165,7 @@
 						console.log("data berhasil di create!!s");
 						showData();
 					}
+					clearColumn();
 				}
 			});
 	}
@@ -153,9 +184,17 @@
 	
 	function updateColumn(data){
 		$('input[name="name"]').val(data.name);
+		$('input[name="id"]').val(data.id);
 		$('input[name="address"]').val(data.address);
 		$('input[name="salary"]').val(data.salary);
 		$('input[name="email"]').val(data.email);
+	}
+	
+	function clearColumn(){
+		$('input[name="name"]').val("");
+		$('input[name="address"]').val("");
+		$('input[name="salary"]').val("");
+		$('input[name="email"]').val("");
 	}
 </script>
 </html>
