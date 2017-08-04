@@ -30,10 +30,11 @@ public class EmployeeController {
 		return "employee";
 	}
 	
+	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public void save(@RequestBody Employee emp){
-		//recieve data json
+		
 		employeeService.save(emp);
 	}
 	

@@ -147,7 +147,7 @@
 			
 			//same with java POJO (java encapsulation)
 			var employee = {
-					name: name,
+					"name": name,
 					address : address,
 					salary : salary,
 					email : email
